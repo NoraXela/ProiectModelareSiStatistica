@@ -41,13 +41,13 @@ def black_scholes_monte_carlo(S0, X, T, r, sigma, option_type='call', num_simula
         option_payoffs = np.maximum(X - stock_prices[:, -1], 0)
 
     # Plot the distribution of option payoffs
-    plt.figure(figsize=(10, 6))
-    plt.hist(option_payoffs, bins=50, color='skyblue', edgecolor='black')
-    plt.title('Distribution of Option Payoffs')
-    plt.xlabel('Option Payoff')
-    plt.ylabel('Frequency')
+    # plt.figure(figsize=(10, 6))
+    # plt.hist(option_payoffs, bins=50, color='skyblue', edgecolor='black')
+    # plt.title('Distribution of Option Payoffs')
+    # plt.xlabel('Option Payoff')
+    # plt.ylabel('Frequency')
 
-    plt.show()
+    # plt.show()
 
     # Calculate the mean of the discounted payoffs
     option_price = np.mean(option_payoffs * np.exp(-r * T))
@@ -56,11 +56,11 @@ def black_scholes_monte_carlo(S0, X, T, r, sigma, option_type='call', num_simula
     refined_price = 0.5 * (bs_price + option_price)
 
     # Plot a comparison between the initial Black-Scholes estimate and the refined estimate
-    plt.figure(figsize=(8, 5))
-    plt.bar(['Black-Scholes', 'Refined Monte Carlo'], [bs_price, refined_price], color=['blue', 'green'])
-    plt.title('Option Price Comparison')
-    plt.ylabel('Option Price')
-    plt.show()
+    # plt.figure(figsize=(8, 5))
+    # plt.bar(['Black-Scholes', 'Refined Monte Carlo'], [bs_price, refined_price], color=['blue', 'green'])
+    # plt.title('Option Price Comparison')
+    # plt.ylabel('Option Price')
+    # plt.show()
 
     return refined_price
 
@@ -72,8 +72,8 @@ r = 0.05  # Risk-free interest rate
 sigma = 0.2  # Volatility
 
 call_price = black_scholes_monte_carlo(S0, X, T, r, sigma, option_type='call', num_simulations=100000)
-put_price = black_scholes_monte_carlo(S0, X, T, r, sigma, option_type='put', num_simulations=100000)
+# put_price = black_scholes_monte_carlo(S0, X, T, r, sigma, option_type='put', num_simulations=100000)
 
 print(f"Refined Call Option Price: {call_price:.2f}")
-print(f"Refined Put Option Price: {put_price:.2f}")
+# print(f"Refined Put Option Price: {put_price:.2f}")
 #10 nota 10
