@@ -76,3 +76,4 @@ put_price = black_scholes_monte_carlo(S0, X, T, r, sigma, option_type='put', num
 
 print(f"Refined Call Option Price: {call_price:.2f}")
 print(f"Refined Put Option Price: {put_price:.2f}")
+#10 nota 10
