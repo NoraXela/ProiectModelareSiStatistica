@@ -69,23 +69,49 @@ expiry = '12-18-2022'
 strike_price = 370
 
 today = datetime.now()
-one_year_ago = today.replace(year=today.year-1)
+# one_year_ago = today.replace(year=today.year-1)
 
-df = web.DataReader(stock, 'yahoo', one_year_ago, today)
+
+# print(one_year_ago)
+# print(today)
+print('testx')
+
+# df = web.DataReader(name=stock, data_source='yahoo', start=one_year_ago, end=today)
+
+#INCERCARE!!!
+start = pd.to_datetime(['2007-01-01']).astype(int)[0]//10**9 # convert to unix timestamp.
+end = pd.to_datetime(['2020-12-31']).astype(int)[0]//10**9 # convert to unix timestamp.
+url = 'https://query1.finance.yahoo.com/v7/finance/download/' + stock + '?period1=' + str(start) + '&period2=' + str(end) + '&interval=1d&events=history'
+df = pd.read_csv(url)
+print(df)
+#END-INCERCARE
+
+print('test2')
 
 df = df.sort_values(by="Date")
 df = df.dropna()
 df = df.assign(close_day_before=df.Close.shift(1))
 df['returns'] = ((df.Close - df.close_day_before)/df.close_day_before)
 
+print('test')
+
 sigma = np.sqrt(252) * df['returns'].std()
-uty = (web.DataReader(
-    "^TNX", 'yahoo', today.replace(day=today.day-1), today)['Close'].iloc[-1])/100
+#   INCERCARE PE uty
+# uty = (web.DataReader(
+#     "^TNX", 'yahoo', today.replace(day=today.day-1), today)['Close'].iloc[-1])/100
+# url2 = 'https://query1.finance.yahoo.com/v7/finance/download/^TNX?period1=' + str(start) + '&period2=' + str(end) + '&interval=1d&events=history'
+# uty = (pd.read_csv(url2))/100
+uty = 4.046/100
+print('uty ')
+print(uty)
+#   FINAL INCERCARE PE uty
+
 lcp = df['Close'].iloc[-1]
+print('test3')
 t = (datetime.strptime(expiry, "%m-%d-%Y") - datetime.utcnow()).days / 365
-
+print('test4')
 print('The Option Price is: ', bs_call(lcp, strike_price, t, uty, sigma))
-
+print('test5')
 print("Implied Volatility: " +
       str(100 * call_implied_volatility(bs_call(lcp, strike_price, t, uty, sigma,), lcp, strike_price, t, uty,)) + " %")
-
+print('test6')
