@@ -65,7 +65,7 @@ def put_implied_volatility(Price, S, K, T, r):
 
 # collecting data
 stock = 'SPY'
-expiry = '12-18-2022'
+expiry = '02-18-2024'
 strike_price = 370
 
 today = datetime.now()
@@ -96,14 +96,15 @@ df['returns'] = ((df.Close - df.close_day_before)/df.close_day_before)
 print('test')
 
 sigma = np.sqrt(252) * df['returns'].std()
+print('sigma')
+print(sigma)
 #   INCERCARE PE uty
 # uty = (web.DataReader(
 #     "^TNX", 'yahoo', today.replace(day=today.day-1), today)['Close'].iloc[-1])/100
 # url2 = 'https://query1.finance.yahoo.com/v7/finance/download/^TNX?period1=' + str(start) + '&period2=' + str(end) + '&interval=1d&events=history'
 # uty = (pd.read_csv(url2))/100
 uty = 4.046/100
-print('uty ')
-print(uty)
+print('uty ', uty)
 #   FINAL INCERCARE PE uty
 
 lcp = df['Close'].iloc[-1]
@@ -111,6 +112,12 @@ print('test3')
 t = (datetime.strptime(expiry, "%m-%d-%Y") - datetime.utcnow()).days / 365
 print('test4')
 print('The Option Price is: ', bs_call(lcp, strike_price, t, uty, sigma))
+# print('lcp ', lcp)
+# print('strike_price ', strike_price)
+# print('t ', t)
+# print('uty ', uty)
+# print('sigma ', sigma)
+# print(bs_call(lcp, strike_price, t, uty, sigma))
 print('test5')
 print("Implied Volatility: " +
       str(100 * call_implied_volatility(bs_call(lcp, strike_price, t, uty, sigma,), lcp, strike_price, t, uty,)) + " %")
