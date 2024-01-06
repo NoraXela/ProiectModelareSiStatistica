@@ -96,8 +96,8 @@ df['returns'] = ((df.Close - df.close_day_before)/df.close_day_before)
 print('test')
 
 sigma = np.sqrt(252) * df['returns'].std()
-print('sigma')
-print(sigma)
+# sigma = 0.90
+print('sigma ', sigma)
 #   INCERCARE PE uty
 # uty = (web.DataReader(
 #     "^TNX", 'yahoo', today.replace(day=today.day-1), today)['Close'].iloc[-1])/100
