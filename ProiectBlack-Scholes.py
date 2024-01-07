@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from pandas import DataFrame
 import pandas_datareader.data as web
+import random
 
 # d1 si d2
 def d1(S,K,T,r,sigma):
@@ -111,6 +112,7 @@ lcp = df['Close'].iloc[-1]
 print('test3')
 t = (datetime.strptime(expiry, "%m-%d-%Y") - datetime.utcnow()).days / 365
 print('test4')
+print('* * *')
 print('The Option Price is: ', bs_call(lcp, strike_price, t, uty, sigma))
 # print('lcp ', lcp)
 # print('strike_price ', strike_price)
@@ -118,7 +120,30 @@ print('The Option Price is: ', bs_call(lcp, strike_price, t, uty, sigma))
 # print('uty ', uty)
 # print('sigma ', sigma)
 # print(bs_call(lcp, strike_price, t, uty, sigma))
-print('test5')
+#print('test5')
 print("Implied Volatility: " +
       str(100 * call_implied_volatility(bs_call(lcp, strike_price, t, uty, sigma,), lcp, strike_price, t, uty,)) + " %")
-print('test6')
+#print('test6')
+
+#Parte noua
+for i in range(10):
+    h = random.randrange(0, int(sigma*10000))
+    sigmaR = h/10000
+#     sigmaR = np.random.uniform(0.0, sigma)
+#     # while sigmaR < 0:
+#     #     sigmaR = np.random.uniform(0.0, sigma)
+    print('* * *')
+# #print("sigma", sigma)   
+    print("sigmaR", sigmaR)   
+    print('The Option Price is: ', bs_call(lcp, strike_price, t, uty, sigmaR))
+    print("Implied Volatility sigmaR: " +
+      str(100 * call_implied_volatility(bs_call(lcp, strike_price, t, uty, sigmaR,), lcp, strike_price, t, uty,)) + " %")   
+
+# for i in range(10):  # Plotting 10 random paths for illustration
+#     #plt.plot(np.arange(0, T + dt, dt), stock_prices[i, :])
+
+# h = random.randrange(0, 2000)
+# j = h/10000
+# print("h",h)
+# print("j",j)
+                    
