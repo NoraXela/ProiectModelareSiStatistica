@@ -6,6 +6,7 @@ import pandas as pd
 from pandas import DataFrame
 import pandas_datareader.data as web
 import random
+import matplotlib.pyplot as plt
 
 # d1 si d2
 def d1(S,K,T,r,sigma):
@@ -126,9 +127,12 @@ print("Implied Volatility: " +
 #print('test6')
 
 #Parte noua
-for i in range(10):
+xArr = []
+yArr = []
+for i in range(1000):
     h = random.randrange(0, int(sigma*10000))
     sigmaR = h/10000
+    xArr.append(sigmaR)
 #     sigmaR = np.random.uniform(0.0, sigma)
 #     # while sigmaR < 0:
 #     #     sigmaR = np.random.uniform(0.0, sigma)
@@ -136,8 +140,21 @@ for i in range(10):
 # #print("sigma", sigma)   
     print("sigmaR", sigmaR)   
     print('The Option Price is: ', bs_call(lcp, strike_price, t, uty, sigmaR))
+    yArr.append(bs_call(lcp, strike_price, t, uty, sigmaR))
     print("Implied Volatility sigmaR: " +
       str(100 * call_implied_volatility(bs_call(lcp, strike_price, t, uty, sigmaR,), lcp, strike_price, t, uty,)) + " %")   
+
+print("xArr ", xArr)
+print("yArr ", yArr)
+
+# plot
+sizes = np.random.uniform(15, 80, len(xArr))
+colors = np.random.uniform(15, 80, len(xArr))
+fig, ax = plt.subplots()
+ax.scatter(xArr, yArr, s=sizes, c=colors, vmin=0, vmax=100)
+# ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+#        ylim=(0, 1), yticks=np.arange(1, 8))
+plt.show()
 
 # for i in range(10):  # Plotting 10 random paths for illustration
 #     #plt.plot(np.arange(0, T + dt, dt), stock_prices[i, :])
