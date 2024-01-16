@@ -7,6 +7,11 @@ import random
 import matplotlib.pyplot as plt
 
 # Formula Black-Scholes
+# Formula Black-Scholes
+# Legenda 
+#  S= Prețul spot                   r = dobanda cu risc 0 
+#  K= Strike price-ul               sigma = volatilitatea activului
+#  T= timpul pana la maturitate     exp= nr. lui euler la put. x
 def d1(S, K, T, r, sigma):
     return (log(S / K) + (r + sigma**2 / 2.) * T) / (sigma * sqrt(T))
 
